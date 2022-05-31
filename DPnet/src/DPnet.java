@@ -23,7 +23,6 @@ public class DPnet {
          */
         public MyFile(String filename){
             this.filename = filename;
-
             read();
         }
         private void read(){
@@ -85,10 +84,24 @@ public class DPnet {
      * @param pos η γραμμή που πίνακα που πρέπει να επιστραφεί,
      * @return η γραμμή του πίνακα μήκους Μ.
      */
-    public static Integer[] getLine(Integer[][] A, Integer M, Integer pos){
+    private static Integer[] getLine(Integer[][] A, Integer M, Integer pos){
         Integer[] arrayLine = new Integer[M];
         for (int j = 0; j < M; j++)
             arrayLine[j] = A[pos][j];
+        return arrayLine;
+    }
+
+    /**
+     * Επιστρέφει μια στήλη απο έναν πίνακα δυο διαστάσεων,
+     * @param A πίνακας των δυο διαστάσεων,
+     * @param M του μήκος της κάθε σειράς του πίνακα,
+     * @param pos η στήλη που πίνακα που πρέπει να επιστραφεί,
+     * @return η στήλη του πίνακα μήκους Μ.
+     */
+    private static Integer[] getRow(Integer[][] A, Integer M, Integer pos){
+        Integer[] arrayLine = new Integer[M];
+        for (int i = 0; i < M; i++)
+            arrayLine[i] = A[i][pos];
         return arrayLine;
     }
 
@@ -125,11 +138,14 @@ public class DPnet {
         for (int i = 1; i < N; i++){
             for (int j = 0; j < M; j++){
                 Integer[] run = getLine(Costs, M, i - 1);
-                Integer[] comm = getLine(VMCost, M, j);
+                Integer[] comm = getRow(VMCost, M, j);
                 Costs[i][j] = getMin(run, comm, M) + SumVMCost[i][j];
             }
         }
 
-        System.out.println(Arrays.deepToString(Costs).replace("], ["," \n").replace("], ", " \n").replace("[[", "").replace("]]", "").replace(", "," "));
+        for (int i = 0; i < N; i++){
+            Integer[] line = getLine(Costs, M, i);
+            System.out.println(Arrays.deepToString(line).replace("[","").replace(", "," ").replace("]",""));
+        }
     }
 }
