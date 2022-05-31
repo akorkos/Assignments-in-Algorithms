@@ -7,6 +7,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class DPnet {
@@ -108,6 +109,17 @@ public class DPnet {
         return min;
     }
 
+    private static boolean isSymmetric(Integer A[][], Integer N, Integer M) {
+        for (int i = 0; i < N; i++){
+            for (int j = 0; j < M; j++){
+                if (!Objects.equals(A[i][j], A[j][i]))
+                    return false;
+            }
+        }
+        return true;
+    }
+
+
     public static void main(String[] args){
         MyFile file = new MyFile(args[0]);
         Integer N = file.getN();
@@ -120,6 +132,9 @@ public class DPnet {
         for (int j = 0; j < M; j++)
             Costs[0][j] = SumVMCost[0][j];
 
+        if (!isSymmetric(VMCost, M, M))
+            System.out.println("!");
+
         // υπολογίζει την τιμή του στοιχειού στη θέση (i, j) του πίνακα,
         // βρίσκοντας το ελάχιστο μονοπάτι απο την i-1 γραμμή του πίνακα Costs.
         for (int i = 1; i < N; i++){
@@ -130,6 +145,11 @@ public class DPnet {
             }
         }
 
-        System.out.println(Arrays.deepToString(Costs).replace("], ["," \n").replace("], ", " \n").replace("[[", "").replace("]]", "").replace(", "," "));
+        for (int i = 0; i < N; i++){
+           Integer[] line = getLine(Costs, M, i);
+           System.out.println(Arrays.deepToString(line).replace("[","").replace(", "," ").replace("]",""));
+        }
     }
+
 }
+
