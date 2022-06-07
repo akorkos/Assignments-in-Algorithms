@@ -112,7 +112,7 @@ public class DPnet {
      * @param M μήκος και των δυο πινάκων,
      * @return ελάχιστη τιμή.
      */
-    public static Integer getMin(Integer[]A, Integer[]B, Integer M){
+    private static Integer getMin(Integer[]A, Integer[]B, Integer M){
         int min = A[0] + B[0];
         for (int i = 1; i < M; i++){
             if ((A[i] + B[i]) < min)
