@@ -4,41 +4,42 @@
  * 3870
  */
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Skyline {
 
-    private static class File {
-        private Boolean first = true;
+    private static class MyFile {
         private Integer N;
         private Point[] Points;
+        private String filename;
 
         /**
          * Διαβάζει και αποθηκεύει σε ενα πίνακα τα σημεία μέσα απο ενα αρχείο,
-         * @param name το όνομα του αρχείου για ανάγνωση.
+         * @param filename το όνομα του αρχείου για ανάγνωση.
          */
+        public MyFile(String filename){
+            this.filename = filename;
+            read();
+        }
 
-        public File(String name){
+        private void read(){
             try {
-                BufferedReader file = new BufferedReader(new FileReader(name));
-                String text;
-                int i = 0;
-                while ((text = file.readLine()) != null) {
-                    if (first) {
-                        N = Integer.parseInt(text);
-                        Points = new Point[N];
-                        first = false;
-                    } else {
-                        String[] numbers = text.split("\\s+");
-                        Point point = new Point(Integer.parseInt(numbers[0]), Integer.parseInt(numbers[1]));
-                        Points[i] = point;
-                        i++;
-                    }
+                File file = new File(filename);
+                Scanner reader = new Scanner(file);
+
+                N = Integer.parseInt(reader.nextLine());
+
+                Points = new Point[N];
+
+                for (int i = 0; i < N; i++){
+                    String[] line = reader.nextLine().split(" ");
+                    Point point = new Point(Integer.parseInt(line[0]), Integer.parseInt(line[1]));
+                    Points[i] = point;
                 }
-                file.close();
+                reader.close();
             } catch (IOException e){
                 System.out.println(e.getMessage());
             }
@@ -175,7 +176,7 @@ public class Skyline {
     }
 
     public static void main(String[] args) {
-        File file = new File(args[0]);
+        MyFile file = new MyFile(args[0]);
         ArrayList<Point> solution;
         Point[] Points = file.getPoints();
         Skyline skyline = new Skyline();
@@ -185,4 +186,3 @@ public class Skyline {
             System.out.println(item);
     }
 }
-
