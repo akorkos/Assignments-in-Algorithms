@@ -10,7 +10,7 @@ Definition: When a dominance relation is given on a dataset, the skyline query r
 
 Formally, for two-dimensional objects $A(x_1, y_1)$ and $B(x_2, y_2)$, considering that a lower value is better in each dimension, we have that A dominates B if and only if: $x_1 \leq x_2$ and $y_1 \leq y_2$ and ($x_1 \neq x_2$ or $y_1 \neq y_2$).
 
-The algorithm implemnted is a efficient one to find the skyline in sets of two-dimensional points in the Euclidean plane.
+The algorithm implemented is a efficient one to find the skyline in sets of two-dimensional points in the Euclidean plane.
 
 ### DPnet
 
